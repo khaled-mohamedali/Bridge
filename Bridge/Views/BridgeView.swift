@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct BridgeView: View {
+    @State private var showReprovision = false
     let devices: [Device] = [
         Device(
             id: UUID(),
@@ -31,8 +32,9 @@ struct BridgeView: View {
             id: UUID(),
             name: "Kitchen Speaker",
             status: .online,
-            icon: "speaker.wave.2")
-        ]
+            icon: "speaker.wave.2"
+        ),
+    ]
     var body: some View {
         NavigationStack {
             Group {
@@ -53,14 +55,21 @@ struct BridgeView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .automatic) {
-                    Image(systemName: "plus").padding(4)
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showReprovision = true
+                    } label: {
+                        Image(systemName: "plus")
+                            .padding(4)
+                    }
                 }
                 ToolbarItem(placement: .principal) {
                     Text("Devices").font(
                         .system(size: 32, weight: Font.Weight.bold)
                     )
                 }
+            } .navigationDestination(isPresented: $showReprovision) {
+                ReProvisionView()
             }
         }
     }
