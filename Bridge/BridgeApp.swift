@@ -11,7 +11,7 @@ import SwiftUI
 struct BridgeApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            BridgeView()
         }
     }
 }

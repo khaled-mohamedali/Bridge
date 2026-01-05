@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		DDFCBCE32F0B1EF30059B57A /* Bridge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bridge.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDFCBCE32F0B1EF30059B57A /* Bridge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Bridge.app; path = "/Users/khaledmohamedali/Downloads/My_Projects/Mobile_Apps/IOS /Bridge/build/Debug-iphoneos/Bridge.app"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -33,16 +33,7 @@
 			isa = PBXGroup;
 			children = (
 				DDFCBCE52F0B1EF30059B57A /* Bridge */,
-				DDFCBCE42F0B1EF30059B57A /* Products */,
 			);
-			sourceTree = "<group>";
-		};
-		DDFCBCE42F0B1EF30059B57A /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				DDFCBCE32F0B1EF30059B57A /* Bridge.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -95,7 +86,7 @@
 			mainGroup = DDFCBCDA2F0B1EF30059B57A;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = DDFCBCE42F0B1EF30059B57A /* Products */;
+			productRefGroup = DDFCBCDA2F0B1EF30059B57A;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
