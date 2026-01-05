@@ -10,29 +10,33 @@ import SwiftUI
 struct ReProvisionView: View {
     @Environment(\.verticalSizeClass) private var verticalSizeClass
     var body: some View {
-      
+
         Group {
-                    if verticalSizeClass == .compact {
-                        ScrollView {
-                            MainView()
-                        }
-                    } else {
-                      MainView()
-                    }
+            if verticalSizeClass == .compact {
+                ScrollView {
+                    MainView()
                 }
-               
+            } else {
+                MainView()
             }
+        }
+
+    }
 }
 
 struct MainView: View {
     var body: some View {
         VStack(spacing: 15) {
             WiFiIcon()
-            Text(verbatim: "Re-provision Wi-Fi").font(.system(size: 24, weight: .semibold))
-            Text("This will reconnect your device to a new Wi-Fi network using Bleutooth.")
-                .multilineTextAlignment(.center)
-                .font(.system(size: 16))
-            
+            Text(verbatim: "Re-provision Wi-Fi").font(
+                .system(size: 24, weight: .semibold)
+            )
+            Text(
+                "This will reconnect your device to a new Wi-Fi network using Bleutooth."
+            )
+            .multilineTextAlignment(.center)
+            .font(.system(size: 16))
+
             DisclaimerBanner()
             VStack(alignment: .leading, spacing: 16) {
                 StepRow(
@@ -40,13 +44,13 @@ struct MainView: View {
                     text: "Connect via Bluetooth",
                     isActive: true
                 )
-                
+
                 StepRow(
                     number: 2,
                     text: "Select your Wi-Fi network",
                     isActive: false
                 )
-                
+
                 StepRow(
                     number: 3,
                     text: "Enter password and connect",
@@ -55,32 +59,28 @@ struct MainView: View {
             }
             .padding()
             Spacer()
-            
-            Button(action: {
-                    // Continue action
-                }) {
-                    Text("Continue")
-                        .font(.system(size: 17, weight: .semibold))
-                        .frame(maxWidth: .infinity, minHeight: 52)
-                }
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(14)
-                
 
-            Button(action: {
-                  // Cancel action
-              }) {
-                  Text("Cancel")
-                      .font(.system(size: 17, weight: .medium))
-                      .frame(maxWidth: .infinity, minHeight: 52)
-              }
-              .background(Color.gray.opacity(0.2))
-              .foregroundColor(.primary)
-              .cornerRadius(14)
+            ButtonPrimary(title:"Continue",foreground:Color.white,background:Color.blue)
+    
+            ButtonPrimary(title: "Cancel", foreground: Color.primary, background: Color.gray.opacity(0.2))
 
         }
         .padding(20)
+    }
+}
+
+struct ButtonPrimary: View {
+    var title: String
+    var foreground: Color
+    var background: Color
+
+    var body: some View {
+        Button(title) {}
+            .frame(maxWidth: .infinity, minHeight: 52)
+            .background(background)
+            .font(.system(size: 17, weight: .medium))
+            .foregroundColor(foreground)
+            .cornerRadius(14)
     }
 }
 
@@ -123,7 +123,8 @@ struct DisclaimerBanner: View {
         ).overlay(
             RoundedRectangle(cornerRadius: 14)
                 .stroke(Color.orange.opacity(0.6), lineWidth: 1)
-        ).padding(.horizontal)    }
+        ).padding(.horizontal)
+    }
 }
 
 struct WiFiIcon: View {
@@ -140,8 +141,8 @@ struct WiFiIcon: View {
 }
 
 struct DisclaimerText: View {
-    var body : some View{
-        VStack (alignment: .leading, spacing: 6){
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
             Text("Temporary Disconnection")
                 .font(.system(size: 16, weight: .semibold))
                 .foregroundColor(.orange)
@@ -153,18 +154,17 @@ struct DisclaimerText: View {
     }
 }
 
-struct Controls : View {
+struct Controls: View {
     var body: some View {
-        VStack{
+        VStack {
             Button("Continue") {
-                
+
                 //
             }
-            Button("Cancel"){
+            Button("Cancel") {
                 //
             }
-            
-            
+
         }.padding()
     }
 }
