@@ -25,6 +25,7 @@ struct DeviceRow: View {
             VStack(alignment: .leading, spacing: 5) {
                 Text(device.name)
                     .font(.system(size: 20, weight: .semibold))
+                    .foregroundStyle(Color.black)
                 HStack {
                     Circle()
                         .frame(width: 10, height: 10)
@@ -46,7 +47,7 @@ struct DeviceRow: View {
         .background(
             RoundedRectangle(cornerRadius: 24, style: .continuous)
                 .fill(Color.white)
-        ).shadow(radius: 10, x: 0, y: 6)
+        ).shadow(color: .blue.opacity(0.08),radius: 10, x: 0, y: 6)
             .padding(.horizontal)
 
     }
