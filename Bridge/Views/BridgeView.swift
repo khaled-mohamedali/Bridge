@@ -8,7 +8,31 @@
 import SwiftUI
 
 struct BridgeView: View {
-    var devices: [String] = []
+    let devices: [Device] = [
+        Device(
+            id: UUID(),
+            name: "Living Room Lamp",
+            status: .online,
+            icon: "lightbulb"
+        ),
+        Device(
+            id: UUID(),
+            name: "Office Fan",
+            status: .offline,
+            icon: "fanblades"
+        ),
+        Device(
+            id: UUID(),
+            name: "Bedroom Thermostat",
+            status: .online,
+            icon: "thermometer"
+        ),
+        Device(
+            id: UUID(),
+            name: "Kitchen Speaker",
+            status: .online,
+            icon: "speaker.wave.2")
+        ]
     var body: some View {
         NavigationStack {
             Group {
@@ -18,8 +42,12 @@ struct BridgeView: View {
                         systemImage: "wifi.slash"
                     )
                 } else {
-                    List(devices, id: \.self) { device in
-                        Text(device)
+                    VStack {
+                        ScrollView {
+                            ForEach(devices) { device in
+                                DeviceRow(device: device)
+                            }
+                        }
                     }
                 }
             }
@@ -36,7 +64,6 @@ struct BridgeView: View {
             }
         }
     }
-    
 
 }
 
