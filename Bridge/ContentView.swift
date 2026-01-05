@@ -8,15 +8,49 @@
 import SwiftUI
 
 struct ContentView: View {
+    var devices: [String] = []
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        NavigationStack(root: {
+            Group {
+                if devices.isEmpty {
+                    ContentUnavailableView(
+                        "No devices connected",
+                        systemImage: "wifi.slash"
+                    )
+                } else {
+                    List(devices, id: \.self) { device in
+                        Text(device)
+                    }
+                }
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar(content: {
+                ToolbarItem(
+                    placement: .automatic,
+                    content: {
+                        Image(systemName: "plus").padding(4)
+                    }
+                )
+                ToolbarItem(
+                    placement: .topBarLeading,
+                    content: {
+                        Image(systemName: "bell.badge.fill")
+                    }
+                )
+                ToolbarItem(
+                    placement: .principal,
+                    content: {
+                        Text("Devices").font(
+                            .system(size: 32, weight: Font.Weight.bold)
+                        )
+                    }
+                )
+            })
+
+        })
+
     }
+
 }
 
 #Preview {
