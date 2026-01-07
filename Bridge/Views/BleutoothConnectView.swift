@@ -15,8 +15,9 @@ struct BleutoothConnectView: View {
                 BluetoothIcon().padding()
                 Text("Scanning Bluetooth...")
                     .font(.system(size: 20, weight: .semibold))
+                    .padding()
                 Text(
-                    "Searching for your device.... Make sire Bleutooth is enable on your phone and device"
+                    "Searching for your device.... Make sure Bleutooth is enable on your phone and device"
                 ).multilineTextAlignment(.center)
                     .foregroundStyle(Color.gray)
             }

@@ -26,48 +26,35 @@ struct ReProvisionView: View {
 
 struct MainView: View {
     var body: some View {
-        VStack(spacing: 15) {
-            WiFiIcon()
-            Text(verbatim: "Re-provision Wi-Fi").font(
-                .system(size: 24, weight: .semibold)
-            )
-            Text(
-                "This will reconnect your device to a new Wi-Fi network using Bleutooth."
-            )
-            .multilineTextAlignment(.center)
-            .font(.system(size: 16))
-
-            DisclaimerBanner()
-            VStack(alignment: .leading, spacing: 16) {
-                StepRow(
-                    number: 1,
-                    text: "Connect via Bluetooth",
-                    isActive: true
+  
+            VStack(spacing: 15) {
+                WiFiIcon()
+                Text(verbatim: "Re-provision Wi-Fi").font(
+                    .system(size: 24, weight: .semibold)
                 )
-
-                StepRow(
-                    number: 2,
-                    text: "Select your Wi-Fi network",
-                    isActive: false
+                Text(
+                    "This will reconnect your device to a new Wi-Fi network using Bleutooth."
                 )
-
-                StepRow(
-                    number: 3,
-                    text: "Enter password and connect",
-                    isActive: false
-                )
+                .multilineTextAlignment(.center)
+                .font(.system(size: 16))
+                DisclaimerBanner()
+                Steps().padding()
+                Spacer()
+                
+                
+                NavigationLink{
+                    BleutoothConnectView()
+                }label: {
+                    ButtonPrimary(title:"Continue",foreground:Color.white,background:Color.blue)
+                }
+                ButtonPrimary(title: "Cancel", foreground: Color.primary, background: Color.gray.opacity(0.2))
+                
             }
-            .padding()
-            Spacer()
-
-            ButtonPrimary(title:"Continue",foreground:Color.white,background:Color.blue)
-    
-            ButtonPrimary(title: "Cancel", foreground: Color.primary, background: Color.gray.opacity(0.2))
-
-        }
-        .padding(20)
+            .padding(20)
+        
     }
 }
+
 
 struct ButtonPrimary: View {
     var title: String
@@ -166,6 +153,30 @@ struct Controls: View {
             }
 
         }.padding()
+    }
+}
+
+struct Steps: View{
+    var body: some View{
+        VStack(alignment: .leading, spacing: 16) {
+            StepRow(
+                number: 1,
+                text: "Connect via Bluetooth",
+                isActive: true
+            )
+
+            StepRow(
+                number: 2,
+                text: "Select your Wi-Fi network",
+                isActive: false
+            )
+
+            StepRow(
+                number: 3,
+                text: "Enter password and connect",
+                isActive: false
+            )
+        }
     }
 }
 

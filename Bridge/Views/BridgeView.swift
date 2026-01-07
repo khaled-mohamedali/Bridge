@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BridgeView: View {
-    @State private var showReprovision = false
+   
     let devices: [Device] = [
         Device(
             id: UUID(),
@@ -56,11 +56,10 @@ struct BridgeView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        showReprovision = true
+                    NavigationLink{
+                        ReProvisionView()
                     } label: {
                         Image(systemName: "plus")
-                            .padding(4)
                     }
                 }
                 ToolbarItem(placement: .principal) {
@@ -68,8 +67,6 @@ struct BridgeView: View {
                         .system(size: 32, weight: Font.Weight.bold)
                     )
                 }
-            } .navigationDestination(isPresented: $showReprovision) {
-                ReProvisionView()
             }
         }
     }
