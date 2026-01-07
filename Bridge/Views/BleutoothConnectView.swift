@@ -5,32 +5,86 @@
 //  Created by Khaled Mohamed Ali on 1/5/26.
 //
 
+import CoreBluetooth
 import SwiftUI
 
 struct BleutoothConnectView: View {
     @Environment(\.dismiss) private var dismiss
+
+    @State private var showResults = false
+    @StateObject private var bt = BluetoothManager()
     var body: some View {
         VStack {
-            VStack(alignment: .center) {
-                BluetoothIcon().padding()
-                Text("Scanning Bluetooth...")
-                    .font(.system(size: 20, weight: .semibold))
-                    .padding()
-                Text(
-                    "Searching for your device.... Make sure Bleutooth is enable on your phone and device"
-                ).multilineTextAlignment(.center)
-                    .foregroundStyle(Color.gray)
+            if !showResults {
+                scanningView
+            } else {
+                devicesList
             }
-            .frame(maxHeight: .infinity)
+
             PrimaryButton(
                 title: "Cancel",
                 foreground: Color.primary,
                 background: Color.gray.opacity(0.2)
-            ){
+            ) {
                 dismiss()
             }
         }
         .padding(20)
+        .onAppear {
+            showResults = false
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                showResults = true
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                bt.stopScan()
+
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("List of Devices")
+                    .font(.system(size: 32, weight: Font.Weight.bold))
+            }
+        }
+    }
+
+    private var scanningView: some View {
+        VStack(alignment: .center) {
+            BluetoothIcon().padding()
+            Text("Scanning Bluetooth...")
+                .font(.system(size: 20, weight: .semibold))
+                .padding()
+            Text(
+                "Searching for your device.... Make sure Bleutooth is enable on your phone and device"
+            ).multilineTextAlignment(.center)
+                .foregroundStyle(Color.gray)
+        }
+        .frame(maxHeight: .infinity)
+    }
+
+    private var devicesList: some View {
+        List {
+            if bt.devices.isEmpty {
+                Text("No devices nearby")
+            } else {
+                ForEach(
+                    bt.devices.sorted {
+                        ($0.name ?? "") > ($1.name ?? "")
+                    },
+                    id: \.identifier
+                ) { peripheral in
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(peripheral.name ?? "Unknown device")
+                            .font(.headline)
+
+                        Text(peripheral.identifier.uuidString)
+                            .font(.caption)
+                            .foregroundStyle(.gray)
+                    }
+                }
+            }
+        }.listStyle(.plain)
+
     }
 }
 

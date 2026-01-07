@@ -10,7 +10,7 @@ import SwiftUI
 struct ReProvisionView: View {
     @Environment(\.verticalSizeClass) private var verticalSizeClass
     var body: some View {
-
+        
         Group {
             if verticalSizeClass == .compact {
                 ScrollView {
