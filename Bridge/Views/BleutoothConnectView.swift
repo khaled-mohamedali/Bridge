@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BleutoothConnectView: View {
-
+    @Environment(\.dismiss) private var dismiss
     var body: some View {
         VStack {
             VStack(alignment: .center) {
@@ -22,11 +22,13 @@ struct BleutoothConnectView: View {
                     .foregroundStyle(Color.gray)
             }
             .frame(maxHeight: .infinity)
-            ButtonPrimary(
+            PrimaryButton(
                 title: "Cancel",
                 foreground: Color.primary,
                 background: Color.gray.opacity(0.2)
-            )
+            ){
+                dismiss()
+            }
         }
         .padding(20)
     }

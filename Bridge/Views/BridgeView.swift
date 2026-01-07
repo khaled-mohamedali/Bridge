@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BridgeView: View {
-   
+
     let devices: [Device] = [
         Device(
             id: UUID(),
@@ -35,39 +35,62 @@ struct BridgeView: View {
             icon: "speaker.wave.2"
         ),
     ]
+    
+    
+    
     var body: some View {
         NavigationStack {
             Group {
                 if devices.isEmpty {
-                    ContentUnavailableView(
-                        "No devices connected",
-                        systemImage: "wifi.slash"
-                    )
+                    emptyState
                 } else {
-                    VStack {
-                        ScrollView {
-                            ForEach(devices) { device in
-                                DeviceRow(device: device)
-                            }
-                        }
-                    }
+                    devicesList
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    NavigationLink{
-                        ReProvisionView()
-                    } label: {
-                        Image(systemName: "plus")
-                    }
-                }
-                ToolbarItem(placement: .principal) {
-                    Text("Devices").font(
-                        .system(size: 32, weight: Font.Weight.bold)
-                    )
+                addDevice
+                frameTitle
+            }
+        }
+    }
+    
+    
+    
+    
+    private var emptyState: some View {
+        ContentUnavailableView(
+            "No devices connected",
+            systemImage: "wifi.slash"
+        )
+    }
+
+    private var devicesList: some View {
+        VStack {
+            ScrollView {
+                ForEach(devices) { device in
+                    DeviceRow(device: device)
                 }
             }
+        }
+    }
+
+    private var addDevice: some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            NavigationLink {
+                ReProvisionView()
+            } label: {
+                Image(systemName: "plus")
+            }
+        }
+    }
+
+    private var frameTitle: some ToolbarContent {
+
+        ToolbarItem(placement: .principal) {
+            Text("Devices").font(
+                .system(size: 32, weight: Font.Weight.bold)
+            )
         }
     }
 

@@ -25,6 +25,7 @@ struct ReProvisionView: View {
 }
 
 struct MainView: View {
+    @Environment(\.dismiss) private var dismiss
     var body: some View {
   
             VStack(spacing: 15) {
@@ -45,29 +46,50 @@ struct MainView: View {
                 NavigationLink{
                     BleutoothConnectView()
                 }label: {
-                    ButtonPrimary(title:"Continue",foreground:Color.white,background:Color.blue)
+                    PrimaryButtonLabel(title:"Continue",foreground:Color.white,background:Color.blue)
                 }
-                ButtonPrimary(title: "Cancel", foreground: Color.primary, background: Color.gray.opacity(0.2))
+                PrimaryButton(title: "Cancel", foreground: .primary, background: .gray.opacity(0.2)) {
+                   dismiss()
+                }
                 
             }
             .padding(20)
+        
+      
         
     }
 }
 
 
-struct ButtonPrimary: View {
-    var title: String
-    var foreground: Color
-    var background: Color
-
+struct PrimaryButtonLabel: View {
+    let title: String
+    let foreground: Color
+    let background: Color
+    
     var body: some View {
-        Button(title) {}
+        Text(title)
             .frame(maxWidth: .infinity, minHeight: 52)
             .background(background)
             .font(.system(size: 17, weight: .medium))
             .foregroundColor(foreground)
             .cornerRadius(14)
+    }
+}
+
+
+struct PrimaryButton: View {
+    let title: String
+    let foreground: Color
+    let background: Color
+    let action: ()->Void
+    
+    
+
+    var body: some View {
+        Button (action: action){
+            PrimaryButtonLabel(title: title, foreground: foreground, background: background)
+        }
+
     }
 }
 
